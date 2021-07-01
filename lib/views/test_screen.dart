@@ -27,7 +27,6 @@ class _TestScreenState extends State<TestScreen> {
   String _model='';
 
 
-
   @override
   Widget build(BuildContext context) {
     print(_recognitions.toString());
