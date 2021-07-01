@@ -1,5 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:hear_me_out/views/login_screen.dart';
+import 'package:hear_me_out/views/on_boarding.dart';
+import 'package:hear_me_out/views/signup_screen.dart';
 import 'package:hear_me_out/views/test_screen.dart';
 
 class AppRoot extends StatelessWidget {
@@ -10,7 +13,11 @@ class AppRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: TestScreen(cameras: cameras,),
+      theme: ThemeData(
+        fontFamily: 'Poppins'
+      ),
+      home: SignupScreen()
+      //TestScreen(cameras: cameras,),
     );
   }
 }
