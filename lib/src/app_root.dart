@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:hear_me_out/views/chat_list_screen.dart';
 import 'package:hear_me_out/views/login_screen.dart';
 import 'package:hear_me_out/views/on_boarding.dart';
 import 'package:hear_me_out/views/signup_screen.dart';
@@ -16,7 +17,9 @@ class AppRoot extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Poppins'
       ),
-      home: SignupScreen()
+      home:
+     // ChatListScreen()
+      SignupScreen()
       //TestScreen(cameras: cameras,),
     );
   }

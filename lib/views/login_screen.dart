@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/logintabs.dart';
 import 'package:hear_me_out/components/signin_form.dart';
+import 'package:hear_me_out/services/auth.dart';
 import 'package:hear_me_out/src/const.dart';
+import 'package:hear_me_out/src/const_function.dart';
+import 'package:hear_me_out/views/on_boarding.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -20,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   bool _isUsernameValid = true;
   bool _isPasswordValid = true;
+
+  Auth  auth = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +109,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       // 3. Request login
 
-                      //###################
+                      auth.signinwithEmai(password:_textPasswordController.text ,
+                          email:_textUsernameController.text
+                      ).then((value) {
+                        navigateAndFinish(screen: IntroGuideScreen() ,context:context );
+                      });
 
                     } else {
                       if (_textUsernameController.text.length < 1) {

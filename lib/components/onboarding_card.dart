@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hear_me_out/src/const_function.dart';
+import 'package:hear_me_out/views/chat_list_screen.dart';
 
 class InterChangingCards extends StatefulWidget {
   @override
@@ -199,6 +201,8 @@ class _InterChangingCardsState extends State<InterChangingCards> {
                   //     builder: (context) => MainNavigation(),
                   //   ),
                   // );
+                  navigateAndFinish(screen:ChatListScreen() ,
+                  context: context);
                 }),
             InkWell(
               borderRadius: BorderRadius.circular(121),
@@ -240,7 +244,7 @@ class _InterChangingCardsState extends State<InterChangingCards> {
                     ++viewNumber;
                   });
                 } else {
-                 print('De7k2');
+                 navigateAndFinish(context: context,screen: ChatListScreen());
                 }
               },
             ),

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "746016028199",
+    "project_id": "hear-me-out-b0945",
+    "storage_bucket": "hear-me-out-b0945.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746016028199:android:4c712004339921e2878002",
+        "android_client_info": {
+          "package_name": "com.example.hear_me_out"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746016028199-omuk05rjccuqv5ogbt9vr47uishaupla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDx5Wq1ZpnuN2k6u-pQ4zxP6xwyYTdxqyI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746016028199-omuk05rjccuqv5ogbt9vr47uishaupla.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/logintabs.dart';
 import 'package:hear_me_out/components/signup_form.dart';
+import 'package:hear_me_out/services/auth.dart';
+import 'package:hear_me_out/services/database.dart';
 import 'package:hear_me_out/src/const.dart';
+import 'package:hear_me_out/src/const_function.dart';
+import 'package:hear_me_out/src/const_strings.dart';
 import 'package:hear_me_out/views/login_screen.dart';
+import 'package:hear_me_out/views/on_boarding.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -25,6 +30,9 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _isMobileValid = true;
   bool _isPasswordValid = true;
   bool _isUserNameValid = true;
+
+  Auth  auth = Auth();
+  DataBaseHelper dbHelper=DataBaseHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +134,16 @@ class _SignupScreenState extends State<SignupScreen> {
 
                       // 3. Request Register
 
-
+                      auth.signupWithEmail(
+                          email:_textEmailController.text ,
+                          password:_textPasswordController.text ).then((value){
+                            print(value);
+                            dbHelper.uploadUserInfo({
+                              USERS_EMAIL:_textEmailController.text.trim(),
+                              USERS_USERNAME: _textNameController.text
+                            });
+                            navigateAndFinish(context: context,screen: IntroGuideScreen());
+                      });
 
                     }
                     else {
