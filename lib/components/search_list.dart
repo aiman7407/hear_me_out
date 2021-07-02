@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/search_tile.dart';
-import 'package:hear_me_out/services/database.dart';
 import 'package:hear_me_out/src/const_strings.dart';
 
 class SearchList extends StatelessWidget {
@@ -11,16 +10,16 @@ class SearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: add images and inhance ui
 
-    print('eeeeeeeeeeeeeeeeeeeee'+searchSnapshot.toString());
-    if(searchSnapshot==null)
-      {
-        return Text('add search ya bacha masr');
-      }
+    print('eeeeeeeeeeeeeeeeeeeee' + searchSnapshot.toString());
+    if (searchSnapshot == null) {
+      return Text('add search ya bacha masr');
+    }
 
-    if(searchSnapshot.docs.isEmpty)
-      {return Text('no data here yet');}
-    else {
+    if (searchSnapshot.docs.isEmpty) {
+      return Text('no data here yet');
+    } else {
       return ListView.builder(
           shrinkWrap: true,
           itemCount: searchSnapshot.docs.length,

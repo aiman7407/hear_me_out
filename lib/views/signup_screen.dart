@@ -3,6 +3,7 @@ import 'package:hear_me_out/components/logintabs.dart';
 import 'package:hear_me_out/components/signup_form.dart';
 import 'package:hear_me_out/services/auth.dart';
 import 'package:hear_me_out/services/database.dart';
+import 'package:hear_me_out/services/local_storage.dart';
 import 'package:hear_me_out/src/const.dart';
 import 'package:hear_me_out/src/const_function.dart';
 import 'package:hear_me_out/src/const_strings.dart';
@@ -132,6 +133,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       FocusScope.of(context)
                           .requestFocus(new FocusNode());
 
+
+
                       // 3. Request Register
 
                       auth.signupWithEmail(
@@ -142,6 +145,10 @@ class _SignupScreenState extends State<SignupScreen> {
                               USERS_EMAIL:_textEmailController.text.trim(),
                               USERS_USERNAME: _textNameController.text
                             });
+
+                            SharedPreferencesHelper.saveUserLoggedIn(true);
+                            SharedPreferencesHelper.saveUserEmail(_textEmailController.text);
+                            SharedPreferencesHelper.saveUsername(_textNameController.text);
                             navigateAndFinish(context: context,screen: IntroGuideScreen());
                       });
 

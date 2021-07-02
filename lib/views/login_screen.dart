@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/logintabs.dart';
 import 'package:hear_me_out/components/signin_form.dart';
 import 'package:hear_me_out/services/auth.dart';
+import 'package:hear_me_out/services/database.dart';
+import 'package:hear_me_out/services/local_storage.dart';
 import 'package:hear_me_out/src/const.dart';
 import 'package:hear_me_out/src/const_function.dart';
+import 'package:hear_me_out/src/const_strings.dart';
 import 'package:hear_me_out/views/on_boarding.dart';
 
 
@@ -24,6 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isUsernameValid = true;
   bool _isPasswordValid = true;
 
+  DataBaseHelper dbHelper=DataBaseHelper();
+  QuerySnapshot userInfoSnapshot;
   Auth  auth = Auth();
 
   @override
@@ -106,12 +112,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       // 2. Close keyboard
                       FocusScope.of(context)
                           .requestFocus(new FocusNode());
+                      //
+                      //  dbHelper.getUserByEmail(_textUsernameController.text).then((value){
+                      //   userInfoSnapshot=value;
+                      //   print(userInfoSnapshot.docs[0][USERS_USERNAME]);
+                      //   // SharedPreferencesHelper.saveUsername(
+                      //   //
+                      //   // );
+                      // });
 
                       // 3. Request login
 
+
+
                       auth.signinwithEmai(password:_textPasswordController.text ,
                           email:_textUsernameController.text
-                      ).then((value) {
+                      ).then((value) async {
+
+                        QuerySnapshot userInfoSnapshot =
+                        await dbHelper.getUserByEmail(_textUsernameController.text);
+
+                        SharedPreferencesHelper.saveUserLoggedIn(true);
+                        print('fdsfsdfds' +userInfoSnapshot.docs[0][USERS_USERNAME]);
+                        SharedPreferencesHelper.saveUsername(
+                            userInfoSnapshot.docs[0][USERS_USERNAME]);
+                        SharedPreferencesHelper.saveUserEmail(
+                            userInfoSnapshot.docs[0][USERS_EMAIL]);
+
                         navigateAndFinish(screen: IntroGuideScreen() ,context:context );
                       });
 
