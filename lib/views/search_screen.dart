@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/search_list.dart';
 import 'package:hear_me_out/services/database.dart';
 import 'package:hear_me_out/src/const.dart';
+import 'package:hear_me_out/src/const_strings.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -16,11 +17,10 @@ class _SearchScreenState extends State<SearchScreen> {
   DataBaseHelper dbHelper=DataBaseHelper();
 
   QuerySnapshot searchSnapshot;
-
+  String name , email;
   @override
   void initState() {
-    initialSearch();
-    super.initState();
+super.initState();
   }
 
   @override
@@ -73,7 +73,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             icon: Icon(Icons.search,
                         color: Colors.white,
                         ), onPressed: () {
-                            initialSearch();
+                            initiateSearch();
                         }),
                       ),
                     )
@@ -82,27 +82,31 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
 
-            // Expanded(
-            //   child: SearchList(
-            //     searchSnapshot: searchSnapshot,
-            //   ),
-            // )
+
+
+            Expanded(
+              child: SearchList(
+              searchSnapshot: searchSnapshot,
+              ),
+            )
 
           ],
         ),
       ),
     );
   }
+  initiateSearch() async {
+    if(searchController.text.isNotEmpty){
+      await dbHelper.getUserByUsername(searchController.text)
+          .then((snapshot){
+        setState(() {
+          searchSnapshot = snapshot;
+        });
+        print("$searchSnapshot");
+        setState(() {
 
-   initialSearch()
-  {
-    searchController.text='lol';
-    dbHelper.getUserByUsername(searchController.text).then((value){
-      // set state
-      print(searchSnapshot);
-      setState(() {
-        searchSnapshot=value;
+        });
       });
-    });
+    }
   }
 }
