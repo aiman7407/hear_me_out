@@ -51,7 +51,7 @@ class SearchTile extends StatelessWidget {
 
     Map<String, dynamic> chatRoom = {
       CHATROOM_USER: users,
-      CHATROOM_id: chatRoomId,
+      CHATROOM_ID: chatRoomId,
     };
     dbHelper.addChatRoom(chatRoom, chatRoomId);
     navigateTo(context: context, screen: ConversationScreen(chatRoomId: chatRoomId,

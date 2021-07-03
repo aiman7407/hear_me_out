@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hear_me_out/components/chatrooms_list.dart';
+import 'package:hear_me_out/components/chatrooms_tile.dart';
 import 'package:hear_me_out/services/auth.dart';
+import 'package:hear_me_out/services/database.dart';
 import 'package:hear_me_out/services/local_storage.dart';
 import 'package:hear_me_out/src/const.dart';
 import 'package:hear_me_out/src/const_function.dart';
+import 'package:hear_me_out/src/const_strings.dart';
 import 'package:hear_me_out/src/user_data_const.dart';
 import 'package:hear_me_out/views/search_screen.dart';
 import 'login_screen.dart';
@@ -12,34 +17,17 @@ class ChatListScreen extends StatefulWidget {
   _ChatListScreenState createState() => _ChatListScreenState();
 }
 
-String username;
+
+
 class _ChatListScreenState extends State<ChatListScreen> {
   Auth auth = Auth();
-
-  getUserInfo() async {
-
-    await SharedPreferencesHelper.getData(
-        SharedPreferencesHelper.sharedPreferenceUsernameKey)
-        .then((value) {
-      if(value!=null)
-      {
-        setState(() {
-          Constants.userName=value;
-        });
-      }
-    });
-
-    username = await SharedPreferencesHelper.getData(
-        SharedPreferencesHelper.sharedPreferenceUsernameKey);
-    setState(() {
-
-    });
-    print(username);
-  }
+  DataBaseHelper dbHelper = DataBaseHelper();
+  Stream chatRoomSream;
 
   @override
   void initState() {
     print(Constants.userName);
+    getRooms();
     getUserInfo();
     super.initState();
   }
@@ -62,6 +50,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
             color: kMainColor,
             onPressed: () {
               auth.signout().then((value) {
+                SharedPreferencesHelper.saveUserLoggedIn(false);
                 navigateAndFinish(context: context, screen: LoginScreen());
               });
             },
@@ -70,14 +59,41 @@ class _ChatListScreenState extends State<ChatListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print('hhhhhhhhhhhhhhhhhh');
           navigateTo(screen: SearchScreen(), context: context);
         },
         child: Icon(Icons.person_search),
       ),
       body: Container(
-        child: Text('dsf'),
+        child: ChatroomsList(chatRoomSream: chatRoomSream,),
       ),
     );
+  }
+
+  getUserInfo() async {
+    await SharedPreferencesHelper.getData(
+        SharedPreferencesHelper.sharedPreferenceUsernameKey)
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          Constants.userName = value;
+        });
+      }
+    });
+
+
+  }
+
+  Widget chatRoomList()
+  {
+
+  }
+
+  getRooms()
+  async{
+   await dbHelper.getChatRoomsList(Constants.userName).then((value){
+      setState(() {
+        chatRoomSream=value;
+      });
+    });
   }
 }

@@ -6,7 +6,7 @@ const String USERS_EMAIL='email';
 
 const String CHATROOM_COLLECTION_NAME='chatRoom';
 const String CHATROOM_USER='users';
-const String CHATROOM_id='chatRoomId';
+const String CHATROOM_ID='chatRoomId';
 
 
 const String CHATS_COLLECTION_NAME='chats';

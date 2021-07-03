@@ -54,5 +54,12 @@ class DataBaseHelper {
   }
 
 
+  getChatRoomsList(String username)
+  async {
+   return await  FirebaseFirestore.instance.collection(CHATROOM_COLLECTION_NAME)
+        .where(CHATROOM_USER,arrayContains: username).snapshots();
+  }
+
+
 }
 

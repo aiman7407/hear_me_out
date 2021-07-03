@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/message_list.dart';
-import 'package:hear_me_out/components/message_tile.dart';
 import 'package:hear_me_out/services/database.dart';
 import 'package:hear_me_out/src/const.dart';
 import 'package:hear_me_out/src/const_strings.dart';
@@ -104,6 +103,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
         CHATS_TIME: DateTime.now().microsecondsSinceEpoch
       };
       dbHelper.addConversationMessages(widget.chatRoomId, messageMap);
+      FocusScope.of(context)
+          .requestFocus(new FocusNode());
       messageController.clear();
     }
   }
