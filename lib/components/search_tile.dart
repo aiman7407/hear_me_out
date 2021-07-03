@@ -53,9 +53,10 @@ class SearchTile extends StatelessWidget {
       CHATROOM_USER: users,
       CHATROOM_id: chatRoomId,
     };
-
     dbHelper.addChatRoom(chatRoom, chatRoomId);
-    navigateTo(context: context, screen: ConversationScreen());
+    navigateTo(context: context, screen: ConversationScreen(chatRoomId: chatRoomId,
+    frindUsername: username,
+    ));
   }
 
   getChatRoomId(String a, String b) {

@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/services/local_storage.dart';
 import 'package:hear_me_out/views/chat_list_screen.dart';
+import 'package:hear_me_out/views/conversation_screen.dart';
 import 'package:hear_me_out/views/login_screen.dart';
 import 'package:hear_me_out/views/on_boarding.dart';
 import 'package:hear_me_out/views/search_screen.dart';
@@ -35,13 +36,11 @@ class _AppRootState extends State<AppRoot> {
         fontFamily: 'Poppins'
       ),
       home:
-     // ChatListScreen()
-
+         // ConversationScreen()
 
           isLoggedIn?
           ChatListScreen()
       :SignupScreen()
-     // SearchScreen()
       //TestScreen(cameras: cameras,),
     );
   }

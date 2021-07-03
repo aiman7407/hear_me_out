@@ -23,10 +23,7 @@ class _SearchScreenState extends State<SearchScreen> {
   QuerySnapshot searchSnapshot;
   String name, email;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {

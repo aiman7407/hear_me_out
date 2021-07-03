@@ -2,61 +2,57 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hear_me_out/src/const_strings.dart';
 
-class DataBaseHelper
-{
+class DataBaseHelper {
 
-    getUserByUsername(dynamic username) async {
+  getUserByUsername(dynamic username) async {
     return await FirebaseFirestore.instance.collection(USERS_COLLECTION_NAME)
-        .where(USERS_USERNAME,isEqualTo:username )
+        .where(USERS_USERNAME, isEqualTo: username)
         .get();
   }
 
-    getUserByEmail(String  email) async {
-      return await FirebaseFirestore.instance.collection(USERS_COLLECTION_NAME)
-          .where(USERS_EMAIL,isEqualTo:email )
-          .get().catchError((e){
-            print(e.toString());
-      });
-    }
+  getUserByEmail(String email) async {
+    return await FirebaseFirestore.instance.collection(USERS_COLLECTION_NAME)
+        .where(USERS_EMAIL, isEqualTo: email)
+        .get().catchError((e) {
+      print(e.toString());
+    });
+  }
 
 
-
-    // Stream<QuerySnapshot>loadOrdersDetails(username)
-    // {
-    //   return FirebaseFirestore.instance.collection(USERS_COLLECTION_NAME).doc(username)
-    //       .collection(USERS_USERNAME)
-    //       .snapshots();
-    // }
-
-
-
-  uploadUserInfo(userMap)
-  {
+  uploadUserInfo(userMap) {
     FirebaseFirestore.instance.collection(USERS_COLLECTION_NAME)
-    .add(userMap)
+        .add(userMap)
     ;
   }
 
-  createChatRoom(String chatRoomId,chatRoomMap)
-  {
+
+  addChatRoom(chatRoom, chatRoomId) {
+    FirebaseFirestore.instance
+        .collection(CHATROOM_COLLECTION_NAME)
+        .doc(chatRoomId)
+        .set(chatRoom)
+        .catchError((e) {
+      print(e);
+    });
+  }
+
+
+  addConversationMessages(String chatRoomId,MessageMap) {
     FirebaseFirestore.instance.collection(CHATROOM_COLLECTION_NAME)
         .doc(chatRoomId)
-        .set(chatRoomMap)
-        .catchError((e){
+        .collection(CHATS_COLLECTION_NAME)
+        .add(MessageMap).catchError((e){
           print(e.toString());
     });
   }
 
-    addChatRoom(chatRoom, chatRoomId)
-    {
-      FirebaseFirestore.instance
-          .collection("chatRoom")
-          .doc(chatRoomId)
-          .set(chatRoom)
-          .catchError((e) {
-        print(e);
-      });
-    }
+  getConversationMessages(String chatRoomId) async {
+   return await FirebaseFirestore.instance.collection(CHATROOM_COLLECTION_NAME)
+        .doc(chatRoomId)
+        .collection(CHATS_COLLECTION_NAME).orderBy(CHATS_TIME)
+        .snapshots();
+  }
+
 
 }
 
