@@ -20,22 +20,32 @@ class ChatroomTile extends StatelessWidget {
         navigateTo(context:context,screen: ConversationScreen(
           frindUsername: finalUsername,chatRoomId: chatRoomId,));
       },
-      child: Row(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              color: kMainColor,
-              borderRadius: BorderRadius.circular(40)
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Container(
+              alignment: Alignment.center,
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                color: kMainColor,
+                borderRadius: BorderRadius.circular(40)
+              ),
+              child: Text(username.substring(0,1).toUpperCase(),
+              style: TextStyle(
+                color: Colors.white
+              ),
+              ),
             ),
-            child: Text(username.substring(0,1).toUpperCase()),
-          ),
-          SizedBox(width: 8,),
-          Text(finalUsername)
+            SizedBox(width: 8,),
+            Text(finalUsername,
+            style: TextStyle(fontSize: 20),
+            ),
 
-        ],
+
+          ],
+        ),
       ),
     );
   }

@@ -28,61 +28,70 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: kSilverColor.withOpacity(0.4),
+      body: Column(
+
+        children: [
+          SizedBox(height: 24,),
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20)
+
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Expanded(
+                color: kSilverColor.withOpacity(0.4),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
                         child: TextField(
-                      controller: searchController,
-                      style: TextStyle(color: kMainColor),
-                      decoration: InputDecoration(
+                    controller: searchController,
+                    style: TextStyle(color: kMainColor,
+                    fontSize: 23
+                    ),
+                    decoration: InputDecoration(
                           hintText: 'Search User Name',
                           border: InputBorder.none),
-                    )),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(colors: [
-                              // Color(0x36FFFFFF),
-                              // Color(0x0FFFFFFF),
-                              kMainColor,
-                              kSecondColor
-                            ]),
-                            borderRadius: BorderRadius.circular(40)),
-                        child: IconButton(
-                            iconSize: 40,
-                            color: kMainColor,
-                            icon: Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              initiateSearch();
-                            }),
-                      ),
-                    )
-                  ],
-                ),
+                  ),
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(colors: [
+                            // Color(0x36FFFFFF),
+                            // Color(0x0FFFFFFF),
+                            kMainColor,
+                            kSecondColor
+                          ]),
+                          borderRadius: BorderRadius.circular(40)),
+                      child: IconButton(
+                          iconSize: 40,
+                          color: kMainColor,
+                          icon: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            initiateSearch();
+                          }),
+                    ),
+                  )
+                ],
               ),
             ),
-            Expanded(
-              child: SearchList(
-                searchSnapshot: searchSnapshot,
-              ),
-            )
-          ],
-        ),
+          ),
+          Expanded(
+            child: SearchList(
+              searchSnapshot: searchSnapshot,
+            ),
+          )
+        ],
       ),
     );
   }

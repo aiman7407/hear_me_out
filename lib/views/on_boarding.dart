@@ -10,34 +10,32 @@ class IntroGuideScreen extends StatefulWidget {
 class _IntroGuideScreenState extends State<IntroGuideScreen> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 32,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(
-                height: 125.5,
+    return  Scaffold(
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 32,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 25,
+            ),
+            Hero(
+              tag: "logo",
+              child: Image.asset(
+                "assets/icons/logo.png",
+                width:80,
               ),
-              Hero(
-                tag: "logo",
-                child: Image.asset(
-                  "assets/icons/logo.png",
-                  width:80,
-                ),
-              ),
-              SizedBox(
-                height:46.54,
-              ),
-              InterChangingCards(),
-              SizedBox(
-                height:15,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height:46.54,
+            ),
+            InterChangingCards(),
+            SizedBox(
+              height:15,
+            ),
+          ],
         ),
       ),
     );
