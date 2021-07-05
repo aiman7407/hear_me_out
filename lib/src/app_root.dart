@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:hear_me_out/main.dart';
 import 'package:hear_me_out/services/local_storage.dart';
 import 'package:hear_me_out/views/chat_list_screen.dart';
 import 'package:hear_me_out/views/conversation_screen.dart';
@@ -10,18 +11,16 @@ import 'package:hear_me_out/views/signup_screen.dart';
 import 'package:hear_me_out/views/test_screen.dart';
 
 class AppRoot extends StatefulWidget {
- final List<CameraDescription> cameras;
+  final List<CameraDescription> cameras;
 
- AppRoot({this.cameras});
+  AppRoot({this.cameras});
 
   @override
   _AppRootState createState() => _AppRootState();
 }
 
 class _AppRootState extends State<AppRoot> {
-
-
-  bool isLoggedIn=false;
+  bool isLoggedIn = false;
 
   @override
   void initState() {
@@ -32,31 +31,28 @@ class _AppRootState extends State<AppRoot> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Poppins'
-      ),
+      theme: ThemeData(fontFamily: 'Poppins'),
       home:
-         // ConversationScreen()
+          // ConversationScreen()
 
-          isLoggedIn?
-          ChatListScreen()
-      :SignupScreen()
-      //TestScreen(cameras: cameras,),
+          //     isLoggedIn?
+          //     ChatListScreen()
+          // :SignupScreen()
+          TestScreen(
+        cameras: cameras,
+      ),
     );
   }
 
-  getLoggedState()
-  async {
+  getLoggedState() async {
     await SharedPreferencesHelper.getData(
-        SharedPreferencesHelper.sharedPreferenceUserLoggenInKey)
+            SharedPreferencesHelper.sharedPreferenceUserLoggenInKey)
         .then((value) {
-         if(value!=null)
-           {
-             setState(() {
-               isLoggedIn=value;
-             });
-           }
+      if (value != null) {
+        setState(() {
+          isLoggedIn = value;
+        });
+      }
     });
   }
-
 }

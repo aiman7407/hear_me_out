@@ -43,18 +43,20 @@ class _CameraState extends State<Camera> {
 
             int startTime = new DateTime.now().millisecondsSinceEpoch;
 
-             Tflite.runModelOnFrame(
-                bytesList: img.planes.map((plane) {return plane.bytes;}).toList(),// required
-                imageHeight: img.height,
-                imageWidth: img.width,
-                imageMean: 127.5,   // defaults to 127.5
-                imageStd: 127.5,    // defaults to 127.5
-                rotation: 0,       // defaults to 90, Android only
-                numResults: 1,      // defaults to 5
-                threshold: 0.1,     // defaults to 0.1
-                asynch: true        // defaults to true
-            )
-             .then((recognitions) {
+            Tflite.runModelOnFrame(
+                    bytesList: img.planes.map((plane) {
+                      return plane.bytes;
+                    }).toList(), // required
+                    imageHeight: img.height,
+                    imageWidth: img.width,
+                    imageMean: 127.5, // defaults to 127.5
+                    imageStd: 127.5, // defaults to 127.5
+                    rotation: 0, // defaults to 90, Android only
+                    numResults: 1, // defaults to 5
+                    threshold: 0.1, // defaults to 0.1
+                    asynch: true // defaults to true
+                    )
+                .then((recognitions) {
               int endTime = new DateTime.now().millisecondsSinceEpoch;
               print("Detection took ${endTime - startTime}");
 
