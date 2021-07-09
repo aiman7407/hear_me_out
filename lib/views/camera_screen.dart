@@ -10,7 +10,6 @@ import 'dart:math' as math;
 
 import '../main.dart';
 
-
 String ssd = 'SSD MobileNet';
 
 class TestScreen extends StatefulWidget {
