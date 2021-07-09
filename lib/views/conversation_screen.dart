@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/message_list.dart';
@@ -47,19 +46,24 @@ class _ConversationScreenState extends State<ConversationScreen> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(15),
                   color: kSilverColor.withOpacity(0.4),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Expanded(
-                        child: TextField(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextField(
                       controller: messageController,
-                      style: TextStyle(color: kMainColor),
+                      style: TextStyle(color: kMainColor,
+                      fontSize: 20
+                      ),
                       decoration: InputDecoration(
-                          hintText: 'Message', border: InputBorder.none),
-                    )),
+                            hintText: 'Message', border: InputBorder.none),
+                    ),
+                        )),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(

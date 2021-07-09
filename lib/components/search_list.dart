@@ -10,24 +10,62 @@ class SearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: add images and inhance ui
+
 
     print('eeeeeeeeeeeeeeeeeeeee' + searchSnapshot.toString());
     if (searchSnapshot == null) {
-      return Text('add search ya bacha masr');
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+            child: Row(
+              children: [
+                Flexible(child: Image.asset('assets/images/search.png')),
+              ],
+            ),
+          ),
+
+          Text('Start finding your friends now ! '.toUpperCase(),
+            style: TextStyle(
+              fontSize: 20
+            ),
+          )
+        ],
+      );
     }
 
     if (searchSnapshot.docs.isEmpty) {
-      return Text('no data here yet');
+      return  Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+            child: Row(
+              children: [
+                Flexible(child: Image.asset('assets/images/notfound.png')),
+              ],
+            ),
+          ),
+
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('you have no friend with this user name '.toUpperCase(),
+              style: TextStyle(
+                  fontSize: 18
+              ),
+            ),
+          )
+        ],
+      );
     } else {
       return ListView.builder(
           shrinkWrap: true,
           itemCount: searchSnapshot.docs.length,
           itemBuilder: (context, index) {
             return searchSnapshot.docs == null
-                ? Container(
-                    child: Text('no data yet'),
-                  )
+                ? Center(
+                 child: CircularProgressIndicator(),
+            )
                 : SearchTile(
                     email: searchSnapshot.docs[index][USERS_EMAIL],
                     username: searchSnapshot.docs[index][USERS_USERNAME],

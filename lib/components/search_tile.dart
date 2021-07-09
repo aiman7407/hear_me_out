@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/services/database.dart';
+import 'package:hear_me_out/src/const.dart';
 import 'package:hear_me_out/src/const_function.dart';
 import 'package:hear_me_out/src/const_strings.dart';
 import 'package:hear_me_out/src/user_data_const.dart';
@@ -16,30 +18,68 @@ class SearchTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(color: kMainColor,
+          width: 2)
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Column(
-            children: [
-              Text(
-                username,
-                style: TextStyle(),
-              ),
-              Text(
-                email,
-                style: TextStyle(),
-              ),
-            ],
+
+          Text('We have found your friend,\n connect together now ! '.toUpperCase(),
+          style: TextStyle(
+            fontSize: 21
           ),
-          Spacer(),
+          ),
           GestureDetector(
             onTap: () {
               createChat(username, context);
             },
             child: Container(
-              color: Colors.red,
-              child: Text('message'),
+              padding: EdgeInsets.all(10),
+              color: kMainColor,
+              child: Text('click to go to $username chatroom '
+                ,style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25
+                ),
+              ),
             ),
-          )
+          ),
+          Card(
+            color: kSecondColor,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Friend Data :',
+                    style: TextStyle(fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                    ),
+                  ),
+                  Text(
+                    username,
+                    style: TextStyle(fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                      color: Colors.white
+                    ),
+                  ),
+                  Text(
+                    email,
+                    style: TextStyle(fontSize: 25,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+
+
+
         ],
       ),
     );
@@ -54,9 +94,12 @@ class SearchTile extends StatelessWidget {
       CHATROOM_ID: chatRoomId,
     };
     dbHelper.addChatRoom(chatRoom, chatRoomId);
-    navigateTo(context: context, screen: ConversationScreen(chatRoomId: chatRoomId,
-    frindUsername: username,
-    ));
+    navigateTo(
+        context: context,
+        screen: ConversationScreen(
+          chatRoomId: chatRoomId,
+          frindUsername: username,
+        ));
   }
 
   getChatRoomId(String a, String b) {

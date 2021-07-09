@@ -29,9 +29,20 @@ class ChatroomsList extends StatelessWidget {
                 itemCount: values.docs.length,
                 itemBuilder:(context,index){
 
-                  return ChatroomTile(
-                    chatRoomId:values.docs[index][CHATROOM_ID] ,
-                    username:values.docs[index][CHATROOM_ID] ,) ;
+                  return Column(
+                    children: [
+                      ChatroomTile(
+                        chatRoomId:values.docs[index][CHATROOM_ID] ,
+                        username:values.docs[index][CHATROOM_ID] ,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 100),
+                        child: Divider(
+
+                          color: kSecondColor,
+                        ),
+                      )
+                    ],
+                  ) ;
                 } );
           }
           else
