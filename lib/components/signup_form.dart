@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 // ignore: must_be_immutable
 class SignUpForm extends StatefulWidget {
   final TextEditingController nameController;
@@ -14,19 +13,19 @@ class SignUpForm extends StatefulWidget {
   bool isPasswordValid;
   bool isUserNameValid;
 
-  SignUpForm({
-    Key key,
-    @required this.nameController,
-    @required this.emailController,
-    @required this.passwordController,
-    @required this.mobileController,
-    @required this.isNameValid,
-    @required this.isEmailValid,
-    @required this.isPasswordValid,
-    @required this.isMobileValid,
-    @required this.isUserNameValid,
-    @required this.userNameController
-  }) : super(key: key);
+  SignUpForm(
+      {Key key,
+      @required this.nameController,
+      @required this.emailController,
+      @required this.passwordController,
+      @required this.mobileController,
+      @required this.isNameValid,
+      @required this.isEmailValid,
+      @required this.isPasswordValid,
+      @required this.isMobileValid,
+      @required this.isUserNameValid,
+      @required this.userNameController})
+      : super(key: key);
   @override
   _SignUpFormState createState() => _SignUpFormState();
 }
@@ -39,14 +38,14 @@ class _SignUpFormState extends State<SignUpForm> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(
-         45,
+          45,
         ),
         boxShadow: [
           BoxShadow(
             color: Colors.black12,
             offset: Offset(
               0.0,
-           3,
+              3,
             ),
             blurRadius: 4,
           )
@@ -54,9 +53,9 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
       padding: EdgeInsets.only(
         left: 37,
-        right:37,
+        right: 37,
         top: 23,
-        bottom:50,
+        bottom: 50,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -102,17 +101,17 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: "Email",
               hintStyle: TextStyle(
                 color: Color(4280554290),
-                fontSize:16,
+                fontSize: 16,
               ),
               errorText: widget.isEmailValid ? null : 'Email Can\'t Be Empty',
               errorStyle: TextStyle(
-                fontSize:12,
+                fontSize: 12,
               ),
             ),
           ),
 
           SizedBox(
-            height:35,
+            height: 35,
           ),
 
           // The username field
@@ -133,7 +132,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 fontSize: 16,
               ),
               errorText:
-              widget.isMobileValid ? null : 'Phone Number Can\'t Be Empty',
+                  widget.isMobileValid ? null : 'Phone Number Can\'t Be Empty',
               errorStyle: TextStyle(
                 fontSize: 12,
               ),
@@ -159,14 +158,12 @@ class _SignUpFormState extends State<SignUpForm> {
                 fontSize: 16,
               ),
               errorText:
-              widget.isUserNameValid ? null : 'Username Can\'t Be Empty',
+                  widget.isUserNameValid ? null : 'Username Can\'t Be Empty',
               errorStyle: TextStyle(
                 fontSize: 12,
               ),
             ),
           ),
-
-
 
           SizedBox(
             height: 35,
@@ -185,16 +182,15 @@ class _SignUpFormState extends State<SignUpForm> {
               hintText: "Password",
               hintStyle: TextStyle(
                 color: Color(4280554290),
-                fontSize:16,
+                fontSize: 16,
               ),
               errorText:
-              widget.isPasswordValid ? null : 'Password Can\'t Be Empty',
+                  widget.isPasswordValid ? null : 'Password Can\'t Be Empty',
               errorStyle: TextStyle(
                 fontSize: 12,
               ),
             ),
           ),
-
         ],
       ),
     );

@@ -201,8 +201,8 @@ class _InterChangingCardsState extends State<InterChangingCards> {
                   //     builder: (context) => MainNavigation(),
                   //   ),
                   // );
-                  navigateAndFinish(screen:ChatListScreen() ,
-                  context: context);
+
+                  navigateAndFinish(screen: ChatListScreen(), context: context);
                 }),
             InkWell(
               borderRadius: BorderRadius.circular(121),
@@ -244,7 +244,7 @@ class _InterChangingCardsState extends State<InterChangingCards> {
                     ++viewNumber;
                   });
                 } else {
-                 navigateAndFinish(context: context,screen: ChatListScreen());
+                  navigateAndFinish(context: context, screen: ChatListScreen());
                 }
               },
             ),

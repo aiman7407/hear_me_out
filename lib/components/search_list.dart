@@ -10,8 +10,6 @@ class SearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     print('eeeeeeeeeeeeeeeeeeeee' + searchSnapshot.toString());
     if (searchSnapshot == null) {
       return Column(
@@ -24,18 +22,16 @@ class SearchList extends StatelessWidget {
               ],
             ),
           ),
-
-          Text('Start finding your friends now ! '.toUpperCase(),
-            style: TextStyle(
-              fontSize: 20
-            ),
+          Text(
+            'Start finding your friends now ! '.toUpperCase(),
+            style: TextStyle(fontSize: 20),
           )
         ],
       );
     }
 
     if (searchSnapshot.docs.isEmpty) {
-      return  Column(
+      return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
@@ -45,14 +41,11 @@ class SearchList extends StatelessWidget {
               ],
             ),
           ),
-
-
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('you have no friend with this user name '.toUpperCase(),
-              style: TextStyle(
-                  fontSize: 18
-              ),
+            child: Text(
+              'you have no friend with this user name '.toUpperCase(),
+              style: TextStyle(fontSize: 18),
             ),
           )
         ],
@@ -64,8 +57,8 @@ class SearchList extends StatelessWidget {
           itemBuilder: (context, index) {
             return searchSnapshot.docs == null
                 ? Center(
-                 child: CircularProgressIndicator(),
-            )
+                    child: CircularProgressIndicator(),
+                  )
                 : SearchTile(
                     email: searchSnapshot.docs[index][USERS_EMAIL],
                     username: searchSnapshot.docs[index][USERS_USERNAME],

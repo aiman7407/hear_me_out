@@ -1,7 +1,5 @@
-class AppUser
-{
-
-  String userId ;
+class AppUser {
+  String userId;
 
   AppUser({this.userId});
 }

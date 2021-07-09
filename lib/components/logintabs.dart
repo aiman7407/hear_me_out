@@ -3,7 +3,6 @@ import 'package:hear_me_out/src/const.dart';
 
 import 'package:hear_me_out/views/login_screen.dart';
 
-
 class LoginTabsButtons extends StatefulWidget {
   final bool isSignIn;
   final bool isForgetPassword;
@@ -41,9 +40,9 @@ class _LoginTabsButtonsState extends State<LoginTabsButtons> {
               border: widget.isSignIn
                   ? null
                   : Border.all(
-                color: kSilverColor,
-                width: 2,
-              ),
+                      color: kSilverColor,
+                      width: 2,
+                    ),
               color: widget.isSignIn ? kMainColor : Colors.white,
             ),
             child: Center(
@@ -61,19 +60,19 @@ class _LoginTabsButtonsState extends State<LoginTabsButtons> {
           onTap: widget.isLoading
               ? null
               : () {
-            if (widget.isForgetPassword) {
-              Navigator.of(context).pop();
-            }
+                  if (widget.isForgetPassword) {
+                    Navigator.of(context).pop();
+                  }
 
-            if (!widget.isSignIn) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
-                ),
-              );
-            }
-          },
+                  if (!widget.isSignIn) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                    );
+                  }
+                },
         ),
         SizedBox(
           width: 39,
@@ -87,14 +86,14 @@ class _LoginTabsButtonsState extends State<LoginTabsButtons> {
             height: 48,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
-               121,
+                121,
               ),
               border: !widget.isSignIn
                   ? null
                   : Border.all(
-                color: kSilverColor,
-                width: 2,
-              ),
+                      color: kSilverColor,
+                      width: 2,
+                    ),
               color: !widget.isSignIn ? kMainColor : Colors.white,
             ),
             child: Center(
@@ -112,13 +111,13 @@ class _LoginTabsButtonsState extends State<LoginTabsButtons> {
           onTap: widget.isLoading
               ? null
               : () {
-            if (widget.isForgetPassword) {
-              Navigator.of(context).pop();
-            }
-            if (widget.isSignIn) {
-              Navigator.of(context).pop();
-            }
-          },
+                  if (widget.isForgetPassword) {
+                    Navigator.of(context).pop();
+                  }
+                  if (widget.isSignIn) {
+                    Navigator.of(context).pop();
+                  }
+                },
         ),
       ],
     );

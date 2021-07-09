@@ -14,7 +14,7 @@ class SearchTextField extends StatefulWidget {
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
-  DataBaseHelper dbHelper =DataBaseHelper();
+  DataBaseHelper dbHelper = DataBaseHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,6 @@ class _SearchTextFieldState extends State<SearchTextField> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-
-
             Expanded(
                 child: TextField(
               controller: widget.searchController,
@@ -58,7 +56,9 @@ class _SearchTextFieldState extends State<SearchTextField> {
                     ),
                     onPressed: () async {
                       if (widget.searchController.text.isNotEmpty) {
-                        await dbHelper.getUserByUsername(widget.searchController.text).then((snapshot) {
+                        await dbHelper
+                            .getUserByUsername(widget.searchController.text)
+                            .then((snapshot) {
                           setState(() {
                             widget.searchSnapshot = snapshot;
                           });

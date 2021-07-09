@@ -23,24 +23,21 @@ class _SearchScreenState extends State<SearchScreen> {
   QuerySnapshot searchSnapshot;
   String name, email;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-
         children: [
-          SizedBox(height: 24,),
+          SizedBox(
+            height: 24,
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
-                    bottomRight: Radius.circular(20)
-
-                ),
+                    bottomRight: Radius.circular(20)),
                 color: kSilverColor.withOpacity(0.4),
               ),
               child: Row(
@@ -48,17 +45,15 @@ class _SearchScreenState extends State<SearchScreen> {
                 children: [
                   Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: TextField(
-                    controller: searchController,
-                    style: TextStyle(color: kMainColor,
-                    fontSize: 23
-                    ),
-                    decoration: InputDecoration(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: TextField(
+                      controller: searchController,
+                      style: TextStyle(color: kMainColor, fontSize: 23),
+                      decoration: InputDecoration(
                           hintText: 'Search User Name',
                           border: InputBorder.none),
-                  ),
-                      )),
+                    ),
+                  )),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -107,6 +102,4 @@ class _SearchScreenState extends State<SearchScreen> {
       });
     }
   }
-
-
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class SignInForm extends StatefulWidget {
   final TextEditingController usernameController;
   final TextEditingController passwordController;
@@ -48,10 +47,10 @@ class _SignInFormState extends State<SignInForm> {
               hintText: "Username",
               hintStyle: TextStyle(
                 color: Color(4280554290),
-                fontSize:16,
+                fontSize: 16,
               ),
               errorText:
-              widget.isUsernameValid ? null : 'Username Can\'t Be Empty',
+                  widget.isUsernameValid ? null : 'Username Can\'t Be Empty',
               errorStyle: TextStyle(
                 fontSize: 12,
               ),
@@ -76,12 +75,12 @@ class _SignInFormState extends State<SignInForm> {
               hintText: "Password",
               hintStyle: TextStyle(
                 color: Color(4280554290),
-                fontSize:16,
+                fontSize: 16,
               ),
               errorText:
-              widget.isPasswordValid ? null : 'Password Can\'t Be Empty',
+                  widget.isPasswordValid ? null : 'Password Can\'t Be Empty',
               errorStyle: TextStyle(
-                fontSize:12,
+                fontSize: 12,
               ),
             ),
           ),

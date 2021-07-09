@@ -6,11 +6,8 @@ import 'package:hear_me_out/src/user_data_const.dart';
 
 import 'message_tile.dart';
 
-
 class MessageList extends StatelessWidget {
-
   final chatMessageStream;
-
 
   MessageList({this.chatMessageStream});
 
@@ -26,20 +23,19 @@ class MessageList extends StatelessWidget {
             return Expanded(
               child: ListView.builder(
                   itemCount: values.docs.length,
-
                   itemBuilder: (context, index) {
                     return MessageTile(
                       message: values.docs[index][CHATS_MESSAGE],
-                      isByMe:
-                      values.docs[index][CHATS_SEND_BY] == Constants.userName,
+                      isByMe: values.docs[index][CHATS_SEND_BY] ==
+                          Constants.userName,
                     );
                   }),
             );
           } else {
             return Center(
                 child: CircularProgressIndicator(
-                  backgroundColor: kMainColor,
-                ));
+              backgroundColor: kMainColor,
+            ));
           }
         });
   }

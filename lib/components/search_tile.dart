@@ -19,18 +19,15 @@ class SearchTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          border: Border.all(color: kMainColor,
-          width: 2)
-      ),
+      decoration:
+          BoxDecoration(border: Border.all(color: kMainColor, width: 2)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
-          Text('We have found your friend,\n connect together now ! '.toUpperCase(),
-          style: TextStyle(
-            fontSize: 21
-          ),
+          Text(
+            'We have found your friend,\n connect together now ! '
+                .toUpperCase(),
+            style: TextStyle(fontSize: 21),
           ),
           GestureDetector(
             onTap: () {
@@ -39,11 +36,9 @@ class SearchTile extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.all(10),
               color: kMainColor,
-              child: Text('click to go to $username chatroom '
-                ,style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25
-                ),
+              child: Text(
+                'click to go to $username chatroom ',
+                style: TextStyle(color: Colors.white, fontSize: 25),
               ),
             ),
           ),
@@ -54,32 +49,28 @@ class SearchTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Friend Data :',
-                    style: TextStyle(fontSize: 30,
+                  Text(
+                    'Friend Data :',
+                    style: TextStyle(
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white
-                    ),
+                        color: Colors.white),
                   ),
                   Text(
                     username,
-                    style: TextStyle(fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                      color: Colors.white
-                    ),
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   Text(
                     email,
-                    style: TextStyle(fontSize: 25,
-                        color: Colors.white),
+                    style: TextStyle(fontSize: 25, color: Colors.white),
                   ),
                 ],
               ),
             ),
           ),
-
-
-
-
         ],
       ),
     );
