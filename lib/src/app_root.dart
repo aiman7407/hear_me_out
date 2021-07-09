@@ -10,7 +10,7 @@ import 'package:hear_me_out/views/login_screen.dart';
 import 'package:hear_me_out/views/on_boarding.dart';
 import 'package:hear_me_out/views/search_screen.dart';
 import 'package:hear_me_out/views/signup_screen.dart';
-import 'package:hear_me_out/views/test_screen.dart';
+import 'package:hear_me_out/views/camera_screen.dart';
 import 'package:provider/provider.dart';
 
 class AppRoot extends StatefulWidget {

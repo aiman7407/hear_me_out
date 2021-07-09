@@ -29,7 +29,7 @@ class _TestScreenState extends State<TestScreen> {
   String _model = '';
   String currentText = '';
   String deafAndMuteMessageText = '';
-  bl7() {
+  getCurrentText() {
     if (_recognitions == null) {
       print('صبح');
     } else {
@@ -42,7 +42,7 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bl7();
+    getCurrentText();
     Size screenSize = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(

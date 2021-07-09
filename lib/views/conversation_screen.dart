@@ -7,7 +7,7 @@ import 'package:hear_me_out/src/const.dart';
 import 'package:hear_me_out/src/const_function.dart';
 import 'package:hear_me_out/src/const_strings.dart';
 import 'package:hear_me_out/src/user_data_const.dart';
-import 'package:hear_me_out/views/test_screen.dart';
+import 'package:hear_me_out/views/camera_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../main.dart';
