@@ -2,15 +2,21 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/bounding_box.dart';
 import 'package:hear_me_out/services/camera.dart';
+import 'package:hear_me_out/src/const.dart';
+import 'package:hear_me_out/src/const_function.dart';
+import 'package:hear_me_out/views/conversation_screen.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
+
+import '../main.dart';
 
 String ssd = 'SSD MobileNet';
 
 class TestScreen extends StatefulWidget {
-  final List<CameraDescription> cameras;
+  final String chatRoomId;
+  final String frindUsername;
 
-  TestScreen({this.cameras});
+  TestScreen({this.chatRoomId, this.frindUsername});
 
   @override
   _TestScreenState createState() => _TestScreenState();
@@ -38,45 +44,80 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     bl7();
     Size screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.camera_alt_outlined),
-        onPressed: () {
-          onSelectModel(ssd);
-        },
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.camera_alt_outlined),
+          onPressed: () {
+            onSelectModel(ssd);
+          },
+        ),
+        body: _model == ''
+            ? Container()
+            : Column(
+                children: [
+                  Container(
+                      height: 300,
+                      child: Camera(cameras, _model, setRecognitions)),
+
+                  SizedBox(
+                    height: 300,
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                      ),
+                      Text(
+                        'Your Text is $currentText ',
+                        style: TextStyle(fontSize: 40.0, color: kMainColor),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            deafAndMuteMessageText =
+                                deafAndMuteMessageText + currentText;
+                          },
+                          child: Text(
+                            'Press Here To Add',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: kSecondColor,
+                              decoration: TextDecoration.underline,
+                            ),
+                          )),
+                      Text(
+                        'Your Text is $deafAndMuteMessageText',
+                        maxLines: 2,
+                        style: TextStyle(color: kMainColor, fontSize: 20),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            navigateAndFinish(
+                                context: context,
+                                screen: ConversationScreen(
+                                  chatRoomId: widget.chatRoomId,
+                                  frindUsername: widget.frindUsername,
+                                  messageTranslated: deafAndMuteMessageText,
+                                ));
+                          },
+                          child: Text(
+                            'Send Message'.toUpperCase(),
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 30),
+                          ))
+                    ],
+                  ),
+                  // BoundingBox(
+                  //     _recognitions == null ? [] : _recognitions,
+                  //     math.max(_imgHeight, _imgWidth),
+                  //     math.min(_imgHeight, _imgWidth),
+                  //     screenSize.width,
+                  //     screenSize.height,
+                  //     _model),
+                ],
+              ),
       ),
-      body: _model == ''
-          ? Container()
-          : Stack(
-              children: [
-                Camera(widget.cameras, _model, setRecognitions),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 100.0,
-                    ),
-                    Text(
-                      'Your Text is $currentText ',
-                      style: TextStyle(fontSize: 40.0),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          deafAndMuteMessageText =
-                              deafAndMuteMessageText + currentText;
-                        },
-                        child: Text('Press Here To Add')),
-                    Text('Your Text is $deafAndMuteMessageText'),
-                  ],
-                ),
-                // BoundingBox(
-                //     _recognitions == null ? [] : _recognitions,
-                //     math.max(_imgHeight, _imgWidth),
-                //     math.min(_imgHeight, _imgWidth),
-                //     screenSize.width,
-                //     screenSize.height,
-                //     _model),
-              ],
-            ),
     );
   }
 

@@ -1,16 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/message_list.dart';
+import 'package:hear_me_out/providers/camera_provider.dart';
 import 'package:hear_me_out/services/database.dart';
 import 'package:hear_me_out/src/const.dart';
+import 'package:hear_me_out/src/const_function.dart';
 import 'package:hear_me_out/src/const_strings.dart';
 import 'package:hear_me_out/src/user_data_const.dart';
+import 'package:hear_me_out/views/test_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../main.dart';
 
 class ConversationScreen extends StatefulWidget {
   final String chatRoomId;
   final String frindUsername;
+  final String messageTranslated;
 
-  ConversationScreen({this.chatRoomId,this.frindUsername});
+  ConversationScreen(
+      {this.chatRoomId, this.frindUsername, this.messageTranslated});
 
   @override
   _ConversationScreenState createState() => _ConversationScreenState();
@@ -31,6 +39,12 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.messageTranslated != null) {
+      messageController.text = widget.messageTranslated;
+    } else {
+      print('no data sent here');
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -40,8 +54,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
       body: Container(
         child: Column(
           children: [
-            MessageList(chatMessageStream: chatMessageStream,),
-
+            MessageList(
+              chatMessageStream: chatMessageStream,
+            ),
             Container(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -54,16 +69,14 @@ class _ConversationScreenState extends State<ConversationScreen> {
                   children: [
                     Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: TextField(
-                      controller: messageController,
-                      style: TextStyle(color: kMainColor,
-                      fontSize: 20
-                      ),
-                      decoration: InputDecoration(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: messageController,
+                        style: TextStyle(color: kMainColor, fontSize: 20),
+                        decoration: InputDecoration(
                             hintText: 'Message', border: InputBorder.none),
-                    ),
-                        )),
+                      ),
+                    )),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -86,7 +99,35 @@ class _ConversationScreenState extends State<ConversationScreen> {
                               sendMessage();
                             }),
                       ),
-                    )
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(colors: [
+                              // Color(0x36FFFFFF),
+                              // Color(0x0FFFFFFF),
+                              kMainColor,
+                              kSecondColor
+                            ]),
+                            borderRadius: BorderRadius.circular(40)),
+                        child: IconButton(
+                            iconSize: 40,
+                            color: kMainColor,
+                            icon: Icon(
+                              Icons.camera_alt_outlined,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              navigateTo(
+                                  context: context,
+                                  screen: TestScreen(
+                                    frindUsername: widget.frindUsername,
+                                    chatRoomId: widget.chatRoomId,
+                                  ));
+                            }),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -97,8 +138,6 @@ class _ConversationScreenState extends State<ConversationScreen> {
     );
   }
 
-
-
   sendMessage() {
     if (messageController.text.isNotEmpty) {
       Map<String, dynamic> messageMap = {
@@ -107,9 +146,11 @@ class _ConversationScreenState extends State<ConversationScreen> {
         CHATS_TIME: DateTime.now().microsecondsSinceEpoch
       };
       dbHelper.addConversationMessages(widget.chatRoomId, messageMap);
-      FocusScope.of(context)
-          .requestFocus(new FocusNode());
+      FocusScope.of(context).requestFocus(new FocusNode());
       messageController.clear();
+      if (messageController.text != '') {
+        messageController.clear();
+      }
     }
   }
 
@@ -121,4 +162,3 @@ class _ConversationScreenState extends State<ConversationScreen> {
     });
   }
 }
-

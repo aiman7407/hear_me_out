@@ -28,6 +28,8 @@ class _CameraState extends State<Camera> {
       print('No camera is found');
     } else {
       controller = new CameraController(
+        //0 is amamia
+        //1 is 5lfia
         widget.cameras[0],
         ResolutionPreset.high,
       );
@@ -51,15 +53,15 @@ class _CameraState extends State<Camera> {
                     imageWidth: img.width,
                     imageMean: 127.5, // defaults to 127.5
                     imageStd: 127.5, // defaults to 127.5
-                    rotation: 0, // defaults to 90, Android only
-                    numResults: 1, // defaults to 5
-                    threshold: 0.1, // defaults to 0.1
+                    rotation: 90, // defaults to 90, Android only
+                    numResults: 29, // defaults to 5
+                    threshold: 0, // defaults to 0.1
                     asynch: true // defaults to true
                     )
                 .then((recognitions) {
-              int endTime = new DateTime.now().millisecondsSinceEpoch;
-              print("Detection took ${endTime - startTime}");
-
+//              int endTime = new DateTime.now().millisecondsSinceEpoch;
+//              print("Detection took ${endTime - startTime}");
+              print(img.height);
               widget.setRecognitions(recognitions, img.height, img.width);
 
               isDetecting = false;

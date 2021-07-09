@@ -10,7 +10,6 @@ import 'package:hear_me_out/src/const_function.dart';
 import 'package:hear_me_out/src/const_strings.dart';
 import 'package:hear_me_out/views/on_boarding.dart';
 
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -19,8 +18,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-
-
   TextEditingController _textUsernameController = TextEditingController();
   TextEditingController _textPasswordController = TextEditingController();
 
@@ -28,9 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isUsernameValid = true;
   bool _isPasswordValid = true;
 
-  DataBaseHelper dbHelper=DataBaseHelper();
+  DataBaseHelper dbHelper = DataBaseHelper();
   QuerySnapshot userInfoSnapshot;
-  Auth  auth = Auth();
+  Auth auth = Auth();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height:75,
+                  height: 75,
                 ),
                 LoginTabsButtons(
                   isSignIn: true,
@@ -66,110 +63,110 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 _isLoading
-                    ?  Center(
-                  // Showing CircularProgressIndicator for the loading process
-                  child: CircularProgressIndicator(
-                    valueColor:  AlwaysStoppedAnimation<Color>(
-                      kSecondColor,
-                    ),
-                  ),
-                )
-                    : InkWell(
-                  borderRadius: BorderRadius.circular(
-                    327,
-                  ),
-                  child: Container(
-                    width: 327,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        327,
-                      ),
-                      color: kSecondColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "CONTINUE",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                    ? Center(
+                        // Showing CircularProgressIndicator for the loading process
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            kSecondColor,
+                          ),
                         ),
+                      )
+                    : InkWell(
+                        borderRadius: BorderRadius.circular(
+                          327,
+                        ),
+                        child: Container(
+                          width: 327,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              327,
+                            ),
+                            color: kSecondColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "CONTINUE",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        onTap: () async {
+                          if (_textUsernameController.text.length > 0 &&
+                              _textPasswordController.text.length > 0) {
+                            // 1. Switch button to loading
+                            setState(() {
+                              _isLoading = true;
+                              _isUsernameValid = true;
+                              _isPasswordValid = true;
+                            });
+
+                            // 2. Close keyboard
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            //
+                            //  dbHelper.getUserByEmail(_textUsernameController.text).then((value){
+                            //   userInfoSnapshot=value;
+                            //   print(userInfoSnapshot.docs[0][USERS_USERNAME]);
+                            //   // SharedPreferencesHelper.saveUsername(
+                            //   //
+                            //   // );
+                            // });
+
+                            // 3. Request login
+
+                            auth
+                                .signinwithEmai(
+                                    password: _textPasswordController.text,
+                                    email: _textUsernameController.text)
+                                .then((value) async {
+                              QuerySnapshot userInfoSnapshot = await dbHelper
+                                  .getUserByEmail(_textUsernameController.text);
+
+                              SharedPreferencesHelper.saveUserLoggedIn(true);
+                              print('fdsfsdfds' +
+                                  userInfoSnapshot.docs[0][USERS_USERNAME]);
+                              SharedPreferencesHelper.saveUsername(
+                                  userInfoSnapshot.docs[0][USERS_USERNAME]);
+                              SharedPreferencesHelper.saveUserEmail(
+                                  userInfoSnapshot.docs[0][USERS_EMAIL]);
+
+                              navigateAndFinish(
+                                  screen: IntroGuideScreen(), context: context);
+                            });
+                          } else {
+                            if (_textUsernameController.text.length < 1) {
+                              setState(() {
+                                _isUsernameValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _isUsernameValid = true;
+                              });
+                            }
+                            if (_textPasswordController.text.length < 1) {
+                              setState(() {
+                                _isPasswordValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _isPasswordValid = true;
+                              });
+                            }
+                          }
+                        },
                       ),
-                    ),
-                  ),
-                  onTap: () async {
-                    if (_textUsernameController.text.length > 0 &&
-                        _textPasswordController.text.length > 0) {
-                      // 1. Switch button to loading
-                      setState(() {
-                        _isLoading = true;
-                        _isUsernameValid = true;
-                        _isPasswordValid = true;
-                      });
-
-                      // 2. Close keyboard
-                      FocusScope.of(context)
-                          .requestFocus(new FocusNode());
-                      //
-                      //  dbHelper.getUserByEmail(_textUsernameController.text).then((value){
-                      //   userInfoSnapshot=value;
-                      //   print(userInfoSnapshot.docs[0][USERS_USERNAME]);
-                      //   // SharedPreferencesHelper.saveUsername(
-                      //   //
-                      //   // );
-                      // });
-
-                      // 3. Request login
-
-
-
-                      auth.signinwithEmai(password:_textPasswordController.text ,
-                          email:_textUsernameController.text
-                      ).then((value) async {
-
-                        QuerySnapshot userInfoSnapshot =
-                        await dbHelper.getUserByEmail(_textUsernameController.text);
-
-                        SharedPreferencesHelper.saveUserLoggedIn(true);
-                        print('fdsfsdfds' +userInfoSnapshot.docs[0][USERS_USERNAME]);
-                        SharedPreferencesHelper.saveUsername(
-                            userInfoSnapshot.docs[0][USERS_USERNAME]);
-                        SharedPreferencesHelper.saveUserEmail(
-                            userInfoSnapshot.docs[0][USERS_EMAIL]);
-
-                        navigateAndFinish(screen: IntroGuideScreen() ,context:context );
-                      });
-
-                    } else {
-                      if (_textUsernameController.text.length < 1) {
-                        setState(() {
-                          _isUsernameValid = false;
-                        });
-                      } else {
-                        setState(() {
-                          _isUsernameValid = true;
-                        });
-                      }
-                      if (_textPasswordController.text.length < 1) {
-                        setState(() {
-                          _isPasswordValid = false;
-                        });
-                      } else {
-                        setState(() {
-                          _isPasswordValid = true;
-                        });
-                      }
-                    }
-                  },
-                ),
                 SizedBox(
                   height: 32,
                 ),
                 InkWell(
                   borderRadius: BorderRadius.circular(
-                   40,
+                    40,
                   ),
                   child: Container(
                     padding: EdgeInsets.symmetric(
@@ -189,13 +186,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: _isLoading
                       ? null
                       : () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => ForgetPassword(),
-                    //   ),
-                    //);
-                  },
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => ForgetPassword(),
+                          //   ),
+                          //);
+                        },
                 ),
                 SizedBox(
                   height: 32,

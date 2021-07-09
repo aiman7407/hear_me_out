@@ -1,6 +1,8 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:hear_me_out/components/logintabs.dart';
 import 'package:hear_me_out/components/signup_form.dart';
+import 'package:hear_me_out/providers/camera_provider.dart';
 import 'package:hear_me_out/services/auth.dart';
 import 'package:hear_me_out/services/database.dart';
 import 'package:hear_me_out/services/local_storage.dart';
@@ -9,6 +11,7 @@ import 'package:hear_me_out/src/const_function.dart';
 import 'package:hear_me_out/src/const_strings.dart';
 import 'package:hear_me_out/views/login_screen.dart';
 import 'package:hear_me_out/views/on_boarding.dart';
+import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -17,7 +20,6 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
 
   TextEditingController _textNameController = TextEditingController();
   TextEditingController _textEmailController = TextEditingController();
@@ -32,8 +34,8 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _isPasswordValid = true;
   bool _isUserNameValid = true;
 
-  Auth  auth = Auth();
-  DataBaseHelper dbHelper=DataBaseHelper();
+  Auth auth = Auth();
+  DataBaseHelper dbHelper = DataBaseHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   isLoading: _isLoading,
                 ),
                 SizedBox(
-                  height:20,
+                  height: 20,
                 ),
                 SignUpForm(
                   nameController: _textNameController,
@@ -76,123 +78,123 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 _isLoading
                     ? new Center(
-                  // Showing CircularProgressIndicator for the loading process
-                  child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(
-                      kSecondColor,
-                    ),
-                  ),
-                )
-                    : InkWell(
-                  borderRadius: BorderRadius.circular(
-                   327,
-                  ),
-                  child: Container(
-                    width: 327,
-                    height: 52,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        327,
-                      ),
-                      color: kSecondColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "CONTINUE",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                        // Showing CircularProgressIndicator for the loading process
+                        child: CircularProgressIndicator(
+                          valueColor: new AlwaysStoppedAnimation<Color>(
+                            kSecondColor,
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  onTap: () async {
-                    if (_textNameController.text.length > 0 &&
-                        _textEmailController.text.length > 0 &&
-                        _textPasswordController.text.length > 0 &&
-                        _textMobileController.text.length > 0)
-                    {
-                      // 1. Switch button to loading
-                      setState(() {
-                        _isLoading = true;
-                        _isNameValid = true;
-                        _isEmailValid = true;
-                        _isPasswordValid = true;
-                        _isMobileValid = true;
-                        _isUserNameValid=true;
-                      });
-
-                      // 1. Switch button to loading
-                      setState(() {
-                        _isLoading = true;
-                      });
-
-                      // 2. Close keyboard
-                      FocusScope.of(context)
-                          .requestFocus(new FocusNode());
-
-
-
-                      // 3. Request Register
-
-                      auth.signupWithEmail(
-                          email:_textEmailController.text ,
-                          password:_textPasswordController.text ).then((value){
-                            print(value);
-                            dbHelper.uploadUserInfo({
-                              USERS_EMAIL:_textEmailController.text.trim(),
-                              USERS_USERNAME: _textNameController.text
+                      )
+                    : InkWell(
+                        borderRadius: BorderRadius.circular(
+                          327,
+                        ),
+                        child: Container(
+                          width: 327,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              327,
+                            ),
+                            color: kSecondColor,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "CONTINUE",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        onTap: () async {
+                          if (_textNameController.text.length > 0 &&
+                              _textEmailController.text.length > 0 &&
+                              _textPasswordController.text.length > 0 &&
+                              _textMobileController.text.length > 0) {
+                            // 1. Switch button to loading
+                            setState(() {
+                              _isLoading = true;
+                              _isNameValid = true;
+                              _isEmailValid = true;
+                              _isPasswordValid = true;
+                              _isMobileValid = true;
+                              _isUserNameValid = true;
                             });
 
-                            SharedPreferencesHelper.saveUserLoggedIn(true);
-                            SharedPreferencesHelper.saveUserEmail(_textEmailController.text);
-                            SharedPreferencesHelper.saveUsername(_textNameController.text);
-                            navigateAndFinish(context: context,screen: IntroGuideScreen());
-                      });
+                            // 1. Switch button to loading
+                            setState(() {
+                              _isLoading = true;
+                            });
 
-                    }
-                    else {
-                      if (_textNameController.text.length < 1) {
-                        setState(() {
-                          _isNameValid = false;
-                        });
-                      } else {
-                        setState(() {
-                          _isNameValid = true;
-                        });
-                      }
-                      if (_textEmailController.text.length < 1) {
-                        setState(() {
-                          _isEmailValid = false;
-                        });
-                      } else {
-                        setState(() {
-                          _isEmailValid = true;
-                        });
-                      }
-                      if (_textPasswordController.text.length < 1) {
-                        setState(() {
-                          _isPasswordValid = false;
-                        });
-                      } else {
-                        setState(() {
-                          _isPasswordValid = true;
-                        });
-                      }
-                      if (_textMobileController.text.length < 1) {
-                        setState(() {
-                          _isMobileValid = false;
-                        });
-                      } else {
-                        setState(() {
-                          _isMobileValid = true;
-                        });
-                      }
-                    }
-                  },
-                ),
+                            // 2. Close keyboard
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+
+                            // 3. Request Register
+
+                            auth
+                                .signupWithEmail(
+                                    email: _textEmailController.text,
+                                    password: _textPasswordController.text)
+                                .then((value) async {
+                              print(value);
+                              await dbHelper.uploadUserInfo({
+                                USERS_EMAIL: _textEmailController.text.trim(),
+                                USERS_USERNAME: _textNameController.text
+                              });
+
+                              SharedPreferencesHelper.saveUserLoggedIn(true);
+                              SharedPreferencesHelper.saveUserEmail(
+                                  _textEmailController.text);
+                              SharedPreferencesHelper.saveUsername(
+                                  _textNameController.text);
+                              navigateAndFinish(
+                                  context: context, screen: IntroGuideScreen());
+                            });
+                          } else {
+                            if (_textNameController.text.length < 1) {
+                              setState(() {
+                                _isNameValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _isNameValid = true;
+                              });
+                            }
+                            if (_textEmailController.text.length < 1) {
+                              setState(() {
+                                _isEmailValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _isEmailValid = true;
+                              });
+                            }
+                            if (_textPasswordController.text.length < 1) {
+                              setState(() {
+                                _isPasswordValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _isPasswordValid = true;
+                              });
+                            }
+                            if (_textMobileController.text.length < 1) {
+                              setState(() {
+                                _isMobileValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _isMobileValid = true;
+                              });
+                            }
+                          }
+                        },
+                      ),
                 SizedBox(
                   height: 32,
                 ),
@@ -210,12 +212,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     InkWell(
                       borderRadius: BorderRadius.circular(
-                       40,
+                        40,
                       ),
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           vertical: 10,
-                          horizontal:5,
+                          horizontal: 5,
                         ),
                         child: Text(
                           "Switch to Sign In",
